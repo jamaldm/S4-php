@@ -1,0 +1,101 @@
+# Modèle Conceptuel de Données (MCD) - Application Blog
+
+## 1. Schéma du MCD (Mermaid)
+
+```mermaid
+erDiagram
+    VILLE ||--o{ AUTEUR : "0,N habite 1,1"
+    AUTEUR ||--o{ ARTICLE : "0,N rédige 1,1"
+    CATEGORIE ||--o{ ARTICLE : "0,N regroupe 1,1"
+
+    VILLE {
+        int id_ville PK
+        string nom_ville
+    }
+
+    AUTEUR {
+        int id_auteur PK
+        string nom_auteur
+        string prenom_auteur
+        string email_auteur
+    }
+
+    ARTICLE {
+        int id_article PK
+        string titre_article
+        text contenu_article
+        date date_publication
+        string statut_article
+        string image_article
+    }
+
+    CATEGORIE {
+        int id_categorie PK
+        string nom_categorie
+    }
+```
+
+---
+
+## 2. Schéma textuel Merise
+
+```text
++-----------------------+
+|         VILLE         |
++-----------------------+
+| id_ville (identifiant)|
+| nom_ville             |
++-----------------------+
+           |
+          0,N
+           |
+       ( habite )
+           |
+          1,1
+           |
+           v
++-----------------------+                    +-----------------------+
+|        AUTEUR         |                    |       CATEGORIE       |
++-----------------------+                    +-----------------------+
+| id_auteur(identifiant)|                    | id_categorie (ident.) |
+| nom_auteur            |                    | nom_categorie         |
+| prenom_auteur         |                    +-----------------------+
+| email_auteur          |                                |
++-----------------------+                               0,N
+           |                                             |
+          0,N                                       ( regroupe )
+           |                                             |
+       ( rédige )                                       1,1
+           |                                             |
+          1,1                                            |
+           \-----------------------\                     /
+                                   v                     v
+                               +-----------------------------+
+                               |           ARTICLE           |
+                               +-----------------------------+
+                               | id_article (identifiant)    |
+                               | titre_article               |
+                               | contenu_article             |
+                               | date_publication            |
+                               | statut_article              |
+                               | image_article               |
+                               +-----------------------------+
+```
+
+---
+
+## 3. Règles de gestion validées
+
+* **VILLE — AUTEUR (habite) :**
+  * Une ville peut accueillir zéro ou plusieurs auteurs `(0,N)`.
+  * Un auteur habite dans une et une seule ville `(1,1)`.
+
+* **AUTEUR — ARTICLE (rédige) :**
+  * Un auteur peut rédiger zéro ou plusieurs articles `(0,N)`.
+  * Un article est rédigé par un et un seul auteur `(1,1)`.
+
+* **CATEGORIE — ARTICLE (regroupe) :**
+  * Une catégorie peut regrouper zéro ou plusieurs articles `(0,N)`.
+  * Un article est classé dans une et une seule catégorie `(1,1)`.
+
+> **Remarque :** La donnée calculée `duree_lecture` est volontairement exclue du MCD conformément aux règles de conception Merise.
