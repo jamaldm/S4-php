@@ -18,6 +18,7 @@ $articles = [
         'categorie_libelle' => 'Design UI/UX',
         'categorie_couleur' => 'rose'
     ]
+
 ];
 
 echo "Article 1 : " . $articles[0]['titre'] . " (" . $articles[0]['categorie_libelle'] . ")<br>";
