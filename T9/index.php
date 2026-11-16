@@ -26,6 +26,3 @@ $categories = [
 ];
 
 require 'index-template.php';
-
-
-require 'index-template.php';
